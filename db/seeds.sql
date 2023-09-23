@@ -20,14 +20,14 @@ INSERT INTO employees (last_name, first_name, job_title, department_name, dept_i
     ("Valmer", "Jimmy", "Engineer II", "Engineering", 2, "100k", "Randy");
 
 INSERT INTO roles (job_title, department_name, salary) VALUES
-    ("Sales Associate", "Sales", "50k"),
-    ("Sales Director", "Sales", "100k"),
-    ("Engineer I", "Engineering", "80k"),
-    ("Engineer II", "Engineering", "100k"),
-    ("Paralegal", "Legal", "40k"),
-    ("Lawyer", "Legal", "120k"),
-    ("Loan Officer", "Accoutning", "60k"),
-    ("CPA", "Accoutning", "100k"),
-    ("HR Assistant", "Human Resources", "40k"),
-    ("HR Manager", "Human Resources", "100k");
+    ("Sales Associate", "Sales", "50"),
+    ("Sales Director", "Sales", "100"),
+    ("Engineer I", "Engineering", "80"),
+    ("Engineer II", "Engineering", "100"),
+    ("Paralegal", "Legal", "40"),
+    ("Lawyer", "Legal", "120"),
+    ("Loan Officer", "Accoutning", "60"),
+    ("CPA", "Accoutning", "100"),
+    ("HR Assistant", "Human Resources", "40"),
+    ("HR Manager", "Human Resources", "100");
     
