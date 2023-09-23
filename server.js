@@ -126,7 +126,7 @@ const addNewEmployee = () => {
       },
     ])
     .then((answers) => {
-      addEmployee(answers.newemp_first, answers.newemp_last, answers.newemp_role, answers.department_name, answers.newemp_manager);
+      addEmployee(answers.newemp_first, answers.newemp_last, answers.newemp_role, answers.newemp_manager);
     });
 };
 
@@ -211,4 +211,3 @@ const addEmployee = (firstName, lastName, role, manager) => {
 };
 
 init();
-
