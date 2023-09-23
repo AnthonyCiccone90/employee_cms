@@ -15,7 +15,7 @@ This is a content mangement system (CMS) used to organize employees at a busines
 <hr>
 
 ### Link to GitHub repository 
-<a hef="https://github.com/AnthonyCiccone90/employee_cms">Click here</a>
+<a href="https://github.com/AnthonyCiccone90/employee_cms">Click here</a>
 <hr>
 
 ### Dependencies Used
