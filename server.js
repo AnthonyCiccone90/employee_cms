@@ -4,13 +4,11 @@ const consoleTable = require("console.table");
 
 const PORT = process.env.PORT || 3001;
 
-// Connect to database
+// Connect to employee_cms database
 const db = mysql.createConnection(
   {
     host: "127.0.0.1",
-    // MySQL username,
     user: "root",
-    // TODO: Add MySQL password here
     password: "Denver",
     database: "employee_cms",
   },
@@ -68,7 +66,7 @@ const init = () => {
     });
 };
 
-
+// goes here if "add department" is selected
 const addDept = () => {
   inquirer
     .prompt([
@@ -83,6 +81,7 @@ const addDept = () => {
     });
 };
 
+// goes here if "add roles" is selected
 const addNewRole = () => {
   inquirer
     .prompt([
@@ -107,6 +106,7 @@ const addNewRole = () => {
     });
 };
 
+// goes here if "add employee" is selected
 const addNewEmployee = () => {
   inquirer
     .prompt([
@@ -154,9 +154,8 @@ const addNewEmployee = () => {
 };
 
 
-
+// shows all departments in table
 const viewAllDepartments = () => {
-
   const query = "SELECT * FROM departments";
   db.query(query, (err, results) => {
     if (err) {
@@ -168,6 +167,7 @@ const viewAllDepartments = () => {
   });
 };
 
+// adds new department to table
 const addDepartment = (newDeptName) => {
   const query = "INSERT INTO departments (dept_name) VALUES (?)";
   db.query(query, [newDeptName], (err, results) => {
@@ -180,6 +180,7 @@ const addDepartment = (newDeptName) => {
   });
 };
 
+// shows all roles in table
 const viewAllRoles = () => {
   const query = `
     SELECT r.role_id, r.job_title, d.dept_name, r.salary
@@ -195,6 +196,7 @@ const viewAllRoles = () => {
   });
 };
 
+// adds new role to table
 const addRole = (newRole, deptName, salary) => {
   const query = "INSERT INTO roles (job_title, department_name, salary) VALUES (?, ?, ?)";
   db.query(query, [newRole, deptName, salary], (err, results) => {
@@ -207,7 +209,7 @@ const addRole = (newRole, deptName, salary) => {
   });
 };
 
-
+// show all employees in table
 const viewAllEmployees = () => {
   const query = `
     SELECT e.emp_id, e.last_name, e .first_name, e.job_title, e.department_name, e.salary, e.manager
@@ -223,6 +225,7 @@ const viewAllEmployees = () => {
   });
 };
 
+// adds new employee to table
 const addEmployee = (firstName, lastName, jobTitle, departmentName, manager, salary) => {
 
   const salaryValue = parseFloat(salary);
@@ -242,7 +245,7 @@ const addEmployee = (firstName, lastName, jobTitle, departmentName, manager, sal
   );
 };
 
-
+//updates existing employee's role
 const updateEmployeeRole = () => {
   const employeeChoices = [];
   const query = "SELECT emp_id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees";
@@ -277,10 +280,7 @@ const updateEmployeeRole = () => {
         db.query(updateQuery, [answers.newRole, answers.employeeId], (updateErr, updateResults) => {
           if (updateErr) {
             console.error("Error updating employee role", updateErr);
-          } else {
-            console.log("Employee role updated successfully!");
           }
-
           init();
         });
       });
