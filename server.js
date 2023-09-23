@@ -120,9 +120,8 @@ const addNewEmployee = () => {
         name: "newemp_job_title",
       },
       {
-        type: "list",
+        type: "input",
         message: "Select department",
-        choices: ["Sales", "Engineering", "Legal", "Accounting", "Human Resources"],
         name: "newemp_department",
       },
       {
