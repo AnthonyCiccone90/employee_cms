@@ -30,6 +30,7 @@ const init = () => {
           "Add roles",
           "View all employees",
           "Add an employee",
+          "Update an employee's role",
         ],
         name: "options",
       },
@@ -59,9 +60,14 @@ const init = () => {
         case "Add an employee":
           addNewEmployee();
           break;
+
+        case "Update an employee's role":
+          updateEmployeeRole(); 
+          break;
       }
     });
 };
+
 
 const addDept = () => {
   inquirer
@@ -236,6 +242,50 @@ const addEmployee = (firstName, lastName, jobTitle, departmentName, manager, sal
   );
 };
 
+
+const updateEmployeeRole = () => {
+  const employeeChoices = [];
+  const query = "SELECT emp_id, CONCAT(first_name, ' ', last_name) AS full_name FROM employees";
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error retrieving employee list", err);
+      return;
+    }
+    results.forEach((employee) => {
+      employeeChoices.push({
+        name: employee.full_name,
+        value: employee.emp_id,
+      });
+    });
+
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          message: "Select an employee to update their role:",
+          choices: employeeChoices,
+          name: "employeeId",
+        },
+        {
+          type: "input",
+          message: "Enter the new role for the employee:",
+          name: "newRole",
+        },
+      ])
+      .then((answers) => {
+        const updateQuery = "UPDATE employees SET job_title = ? WHERE emp_id = ?";
+        db.query(updateQuery, [answers.newRole, answers.employeeId], (updateErr, updateResults) => {
+          if (updateErr) {
+            console.error("Error updating employee role", updateErr);
+          } else {
+            console.log("Employee role updated successfully!");
+          }
+
+          init();
+        });
+      });
+  });
+};
 
 
 init();
