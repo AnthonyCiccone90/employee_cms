@@ -19,6 +19,8 @@ CREATE TABLE employees (
   manager VARCHAR(30) NOT NULL
   );
 
+ALTER TABLE employees
+MODIFY COLUMN salary VARCHAR(30) NOT NULL DEFAULT '0';
 
 
 CREATE table roles (

@@ -116,22 +116,42 @@ const addNewEmployee = () => {
       },
       {
         type: "input",
-        message: "Enter role",
-        name: "newemp_role",
+        message: "Enter job title",
+        name: "newemp_job_title",
+      },
+      {
+        type: "list",
+        message: "Select department",
+        choices: ["Sales", "Engineering", "Legal", "Accounting", "Human Resources"],
+        name: "newemp_department",
       },
       {
         type: "input",
-        message: "Enter manager name",
+        message: "Enter manager's name",
         name: "newemp_manager",
+      },
+      {
+        type: "input",
+        message: "Enter salary", 
+        name: "newemp_salary",
       },
     ])
     .then((answers) => {
-      addEmployee(answers.newemp_first, answers.newemp_last, answers.newemp_role, answers.newemp_manager);
+      addEmployee(
+        answers.newemp_first,
+        answers.newemp_last,
+        answers.newemp_job_title,
+        answers.newemp_department,
+        answers.newemp_manager,
+        answers.newemp_salary 
+      );
     });
 };
 
+
+
 const viewAllDepartments = () => {
-  // Execute an SQL query to select all departments
+
   const query = "SELECT * FROM departments";
   db.query(query, (err, results) => {
     if (err) {
@@ -198,16 +218,25 @@ const viewAllEmployees = () => {
   });
 };
 
-const addEmployee = (firstName, lastName, role, manager) => {
-  const query = "INSERT INTO employees (first_name, last_name, job_title, manager) VALUES (?, ?, ?, ?)";
-  db.query(query, [firstName, lastName, role, manager], (err, results) => {
-    if (err) {
-      console.error("Error adding new employee", err);
-      return;
+const addEmployee = (firstName, lastName, jobTitle, departmentName, manager, salary) => {
+
+  const salaryValue = parseFloat(salary);
+
+  const query =
+    "INSERT INTO employees (first_name, last_name, job_title, department_name, manager, salary) VALUES (?, ?, ?, ?, ?, ?)";
+  db.query(
+    query,
+    [firstName, lastName, jobTitle, departmentName, manager, salaryValue], 
+    (err, results) => {
+      if (err) {
+        console.error("Error adding new employee", err);
+        return;
+      }
+      viewAllEmployees();
     }
-    console.table(results);
-    viewAllEmployees();
-  });
+  );
 };
+
+
 
 init();
